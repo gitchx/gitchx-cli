@@ -20,3 +20,6 @@ go.work
 # Executables
 pdoc/pdoc
 wcat/wcat
+
+# Release directory (contains build artifacts)
+release/
