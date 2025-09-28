@@ -22,7 +22,7 @@ A tool for converting files between Markdown (GFM) and HTML using `pandoc`.
 
 - **Source Code**: `pdoc/main.go`
 - **Lua Filter**: `pdoc/no-id.lua`
-- **Build Targets**: macOS (darwin/amd64) and Windows (amd64).
+- **Build Targets**: macOS (ARM64), Linux (x64), Windows (x64).
 
 ### 2. `wcat`
 
@@ -35,20 +35,33 @@ A wrapper for the PowerShell command `Get-Content` to easily display UTF-8 encod
 - **Platform**: Windows only.
 
 - **Source Code**: `wcat/main.go`
-- **Build Target**: Windows (amd64).
+- **Build Target**: Windows (x64).
+
+### 3. `gpush`
+
+A convenience tool to stage all changes, commit them with a timestamp, and push to the remote repository in a single command.
+
+- **Functionality**:
+  - `gpush`: Executes `git add .`, then `git commit -m "YYYY-MM-DD HH:MM"`, and finally `git push`.
+
+- **Source Code**: `gpush/main.go`
+- **Build Targets**: macOS (ARM64), Linux (x64), Windows (x64).
 
 ## How to Build
 
-Use the Go compiler to build the executables. From within each tool's directory (`pdoc` or `wcat`):
+You can build the tools for a specific platform by using the `go build` command and setting the `GOOS` and `GOARCH` environment variables. From within the directory of the tool you want to build (e.g., `pdoc`, `wcat`):
 
-- **For macOS/Linux**:
+- **macOS (ARM64):**
   ```sh
-  go build
+  GOOS=darwin GOARCH=arm64 go build
   ```
-
-- **For Windows (amd64) Cross-compilation**:
+- **Linux (x64):**
   ```sh
-  GOOS=windows GOARCH=amd64 go build
+  GOOS=linux GOARCH=amd64 go build
+  ```
+- **Windows (x64):**
+  ```sh
+  GOOS=windows GOARCH=amd64 go build -o <tool_name>.exe
   ```
 
 ---

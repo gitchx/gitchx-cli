@@ -11,11 +11,10 @@ func runCommand(name string, args ...string) error {
 	cmd := exec.Command(name, args...)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	fmt.Printf("Running command: %s %v
-", name, args)
+	fmt.Printf("Running command: %s %v\n", name, args)
 	err := cmd.Run()
 	if err != nil {
-		return fmt.Errorf("failed to execute command '%s %v': %w", name, args, err)
+		return fmt.Errorf("failed to execute command %s %v: %w", name, args, err)
 	}
 	return nil
 }
@@ -31,8 +30,6 @@ func main() {
 	commitMessage := time.Now().Format("2006-01-02 15:04")
 	if err := runCommand("git", "commit", "-m", commitMessage); err != nil {
 		fmt.Println(err)
-		// It's possible there was nothing to commit. We can choose to continue to push.
-		// For now, we'll exit on any error.
 		os.Exit(1)
 	}
 
@@ -42,6 +39,5 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Println("
-Successfully added, committed, and pushed changes.")
+	fmt.Println("\nSuccessfully added, committed, and pushed changes.")
 }
