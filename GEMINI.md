@@ -64,6 +64,32 @@ You can build the tools for a specific platform by using the `go build` command 
   GOOS=windows GOARCH=amd64 go build -o <tool_name>.exe
   ```
 
+## How to Release
+
+1.  Ensure all changes are committed and the binaries in the `release` directory are up-to-date.
+2.  Determine the new version number (e.g., `v1.2.0`).
+3.  Create archives for each platform.
+    -   **Linux:**
+        ```sh
+        tar -czf release/gitchx-cli-Linux-amd64.tar.gz -C release/Linux-amd64 .
+        ```
+    -   **macOS:**
+        ```sh
+        tar -czf release/gitchx-cli-macOS-arm64.tar.gz -C release/macOS-arm64 .
+        ```
+    -   **Windows:**
+        ```sh
+        zip -j release/gitchx-cli-Windows-amd64.zip release/Windows-amd64/*
+        ```
+4.  Create a new GitHub release using the `gh` CLI tool.
+    ```sh
+    gh release create <tag> <archive_files...> --title "<title>" --notes "<notes>"
+    ```
+    **Example:**
+    ```sh
+    gh release create v1.1.0 release/gitchx-cli-Linux-amd64.tar.gz release/gitchx-cli-macOS-arm64.tar.gz release/gitchx-cli-Windows-amd64.zip --title "v1.1.0" --notes "Release notes here"
+    ```
+
 ---
 
 ## User Preferences
